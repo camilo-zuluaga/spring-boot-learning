@@ -21,4 +21,20 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         TypedQuery<Employee> query = entityManager.createQuery("from Employee", Employee.class);
         return query.getResultList();
     }
+
+    @Override
+    public Employee findById(int employeeId) {
+        return entityManager.find(Employee.class, employeeId);
+    }
+
+    @Override
+    public Employee save(Employee employeeToSave) {
+        // save or update
+        return entityManager.merge(employeeToSave);
+    }
+
+    @Override
+    public void delete(int employeeId) {
+        entityManager.remove(findById(employeeId));
+    }
 }
